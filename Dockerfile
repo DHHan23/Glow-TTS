@@ -18,9 +18,9 @@ RUN pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="-
 
 RUN pip install --no-cache-dir \
     "cython==0.29.12" \ 
-    "librosa==0.6.0" \ 
-    "numpy==1.16.4" \ 
-    "scipy==1.3.0" \ 
+    "librosa==0.7.2" \ 
+    "numpy==1.17.4" \ 
+    "scipy==1.4.1" \ 
     "numba==0.48" \
     "Unidecode==1.0.22" \
     "tensorflow==2.3.0" \ 
