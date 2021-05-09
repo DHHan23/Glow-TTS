@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     unzip \
     git \
+    libsndfile1 \
  && rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/NVIDIA/apex /apex
@@ -25,10 +26,13 @@ RUN pip install --no-cache-dir \
     "Unidecode==1.0.22" \
     "tensorflow==2.3.0" \ 
     "inflect==4.1.0" \
-    "matplotlib==3.3.0"
+    "matplotlib==3.3.0" \
+    "jupyterlab"
 
 RUN mkdir -p /content/glow-tts
 
 WORKDIR /content/glow-tts
 
-CMD ["/content/glow-tts/train_ddi.sh", "configs/base.json", "/content/data/generated/glow-tts"]
+EXPOSE 8888
+
+CMD ["jupyter", "lab", "--ip=*", "--port=8888", "--no-browser", "--allow-root"]
