@@ -57,6 +57,11 @@ def save_checkpoint(model, optimizer, learning_rate, iteration, checkpoint_path)
               'optimizer': optimizer.state_dict(),
               'learning_rate': learning_rate}, checkpoint_path)
 
+def delete_checkpoint_fromGoogleDrive(iteration, checkpoint_path):
+  if os.path.isfile(checkpoint_path):
+    logger.info("HDH 테스트 삭제한다!!!! -iteration={}".format(iteration))
+    logger.info("HDH 테스트 삭제한다!!!! -checkpoint_path={}".format(checkpoint_path))
+    os.remove(checkpoint_path)
 
 def summarize(writer, global_step, scalars={}, histograms={}, images={}):
   for k, v in scalars.items():
