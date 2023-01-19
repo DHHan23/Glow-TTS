@@ -89,14 +89,17 @@ def train_and_eval(rank, n_gpus, hps):
       evaluate(rank, epoch, hps, generator, optimizer_g, val_loader, logger, writer_eval)
       utils.save_checkpoint(generator, optimizer_g, hps.train.learning_rate, epoch, os.path.join(hps.model_dir, "G_{}.pth".format(epoch)))
       # HDH 추가 
-      logger.info("HDH-크기비교={}".format(epoch-10 > 3552))
-      if epoch-10 > 3552:
-        for index in range(3553,epoch-10):
+      logger.info("HDH-크기비교={}".format(epoch-40 > 3511))
+      if epoch-40 > 3511:
+        for index in range(epoch-40,epoch-10):
+          utils.delete_checkpoint_fromGoogleDrive(index, os.path.join(hps.model_dir, "G_{}.pth".format(index)))
+      else:
+        for index in range(3512,epoch-10):
           utils.delete_checkpoint_fromGoogleDrive(index, os.path.join(hps.model_dir, "G_{}.pth".format(index)))
     else:
       train(rank, epoch, hps, generator, optimizer_g, train_loader, None, None)
 
-
+      
 def train(rank, epoch, hps, generator, optimizer_g, train_loader, logger, writer):
   train_loader.sampler.set_epoch(epoch)
   global global_step
